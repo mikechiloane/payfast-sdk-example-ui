@@ -43,7 +43,7 @@ export default function PaymentPage() {
 
     const fetchPaymentData = async () => {
       try {
-        const apiHost = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:3000';
+        const apiHost = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:3001';
         const response = await fetch(`${apiHost}/pay/${productId}`);
         
         if (!response.ok) {
@@ -104,7 +104,7 @@ export default function PaymentPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <div className="bg-red-50 border border-red-200 rounded-lg p-8">
+          <div className="bg-red-50 border border-red-200 p-8">
             <h2 className="text-lg font-semibold text-red-800 mb-2">Error</h2>
             <p className="text-red-600 mb-4">{error}</p>
             <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">
@@ -124,7 +124,7 @@ export default function PaymentPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <div className="bg-red-50 border border-red-200 rounded-lg p-8">
+          <div className="bg-red-50 border border-red-200 p-8">
             <h2 className="text-lg font-semibold text-red-800 mb-2">Product Not Found</h2>
             <p className="text-red-600 mb-4">The requested product could not be found.</p>
             <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">
@@ -160,11 +160,11 @@ export default function PaymentPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-xl shadow-lg p-8"
+            className="bg-white shadow-lg p-8"
           >
             <div className="flex items-center mb-6">
-              <div className="bg-blue-100 rounded-lg p-3 mr-4">
-                <ShoppingCart className="h-8 w-8 text-blue-600" />
+              <div style={{backgroundColor: '#026bb3'}} className="p-3 mr-4">
+                <ShoppingCart className="h-8 w-8 text-white" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Order Summary</h1>
@@ -178,10 +178,10 @@ export default function PaymentPage() {
               
               <div className="flex justify-between items-center py-4 border-t border-gray-200">
                 <span className="text-lg font-medium text-gray-900">Total Amount</span>
-                <span className="text-3xl font-bold text-gray-900">${product.price.toFixed(2)}</span>
+                <span className="text-3xl font-bold text-gray-900 font-mono tracking-tight">R{product.price.toFixed(2)}</span>
               </div>
 
-              <div className="mt-6 p-4 bg-green-50 rounded-lg">
+              <div className="mt-6 p-4 bg-green-50">
                 <div className="flex items-center">
                   <Shield className="h-5 w-5 text-green-600 mr-2" />
                   <span className="text-sm text-green-800 font-medium">Secure Payment with PayFast</span>
@@ -198,11 +198,11 @@ export default function PaymentPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white rounded-xl shadow-lg p-8"
+            className="bg-white shadow-lg p-8"
           >
             <div className="flex items-center mb-6">
-              <div className="bg-green-100 rounded-lg p-3 mr-4">
-                <CreditCard className="h-8 w-8 text-green-600" />
+              <div style={{backgroundColor: '#e5445f'}} className="p-3 mr-4">
+                <CreditCard className="h-8 w-8 text-white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-gray-900">Payment Details</h2>
@@ -211,7 +211,7 @@ export default function PaymentPage() {
             </div>
 
             {/* Payment Information Display */}
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+            <div className="mb-6 p-4 bg-gray-50">
               <h3 className="text-sm font-medium text-gray-700 mb-3">Payment Information</h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
@@ -220,7 +220,7 @@ export default function PaymentPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Amount:</span>
-                  <span className="font-semibold text-gray-900">${paymentData.fields.amount}</span>
+                  <span className="font-semibold text-gray-900 font-mono">R{paymentData.fields.amount}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Merchant ID:</span>
@@ -252,10 +252,11 @@ export default function PaymentPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handlePayment}
-              className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl"
+              style={{backgroundColor: '#026bb3'}}
+              className="w-full hover:opacity-90 text-white font-bold py-4 px-6 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl"
             >
               <CreditCard className="h-5 w-5" />
-              Pay ${product.price.toFixed(2)} with PayFast
+              <span>Pay <span className="font-mono">R{product.price.toFixed(2)}</span> with PayFast</span>
             </motion.button>
 
             {/* Security Notice */}

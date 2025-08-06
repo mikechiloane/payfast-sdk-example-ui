@@ -1,12 +1,21 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## PayFast SDK Example UI
+## PayFast Java SDK Example UI
 
-This project demonstrates PayFast integration with a modern Next.js application featuring:
-- Product listing with API integration
-- Responsive design with Tailwind CSS
+This project demonstrates PayFast integration using the PayFast Java SDK with a modern Next.js frontend and AWS Lambda backend architecture:
+
+### Architecture Overview:
+- **Frontend**: Next.js React application with TypeScript and Tailwind CSS
+- **Backend**: AWS Lambda function using the PayFast Java SDK
+- **Integration**: UI makes API calls to Lambda endpoints that generate PayFast form data
+- **Payment Processing**: Secure PayFast payment forms generated server-side using Java SDK
+
+### Features:
+- Product listing with responsive design
+- PayFast Java SDK integration via Lambda functions
 - Smooth animations with Framer Motion
-- PayFast payment processing (ready for integration)
+- Server-side payment form generation for security
+- Environment-based configuration
 
 ## Environment Configuration
 

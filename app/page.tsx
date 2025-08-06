@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, ShoppingCart, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface Product {
   productId: string;
@@ -21,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const apiHost = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:3000';
+        const apiHost = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:3001';
         const response = await fetch(`${apiHost}/getProducts`);
         if (!response.ok) {
           throw new Error('Failed to fetch products');
@@ -82,11 +83,24 @@ export default function Home() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
+          <div className="flex justify-center mb-6">
+            <Image
+              src="/logo.svg"
+              alt="Company Logo"
+              width={200}
+              height={80}
+              priority
+              className="h-auto"
+            />
+          </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Our Products
+            PayFast Java SDK Example
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover our amazing collection of products. Choose what you love and pay securely with PayFast.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-2">
+            This is an example implementation of the PayFast Java SDK. The UI interacts with a Lambda function that uses the PayFast Java SDK to generate the PayFast form data.
+          </p>
+          <p className="text-sm text-gray-500 max-w-xl mx-auto">
+            Choose a product below and experience secure payment processing powered by PayFast's Java SDK integration.
           </p>
         </motion.div>
 
@@ -106,12 +120,12 @@ export default function Home() {
                 y: -5,
                 transition: { duration: 0.2 }
               }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              className="bg-white shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="bg-blue-100 rounded-lg p-3">
-                    <ShoppingCart className="h-6 w-6 text-blue-600" />
+                  <div style={{backgroundColor: '#026bb3'}} className="p-3">
+                    <ShoppingCart className="h-6 w-6 text-white" />
                   </div>
                   <span className="text-sm font-medium text-gray-500">
                     ID: {product.productId}
@@ -127,15 +141,16 @@ export default function Home() {
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <div className="text-3xl font-bold text-gray-900">
-                    ${product.price.toFixed(2)}
+                  <div className="text-3xl font-bold text-gray-900 font-mono tracking-tight">
+                    R{product.price.toFixed(2)}
                   </div>
                   
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handlePayment(product)}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
+                    style={{backgroundColor: '#e5445f'}}
+                    className="hover:opacity-90 text-white font-semibold py-3 px-6 transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
                   >
                     <CreditCard className="h-4 w-4" />
                     Pay Now
@@ -143,13 +158,13 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Gradient border animation */}
+              {/* Border animation */}
               <motion.div
-                className="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
+                className="h-1"
+                style={{backgroundColor: '#026bb3', originX: 0}}
                 initial={{ scaleX: 0 }}
                 whileHover={{ scaleX: 1 }}
                 transition={{ duration: 0.3 }}
-                style={{ originX: 0 }}
               />
             </motion.div>
           ))}
