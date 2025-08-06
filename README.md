@@ -1,5 +1,28 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## PayFast SDK Example UI
+
+This project demonstrates PayFast integration with a modern Next.js application featuring:
+- Product listing with API integration
+- Responsive design with Tailwind CSS
+- Smooth animations with Framer Motion
+- PayFast payment processing (ready for integration)
+
+## Environment Configuration
+
+Before running the application, copy the example environment file and configure your API host:
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` and update the following variables:
+
+```env
+# API Configuration
+NEXT_PUBLIC_API_HOST=http://localhost:3000
+```
+
 ## Getting Started
 
 First, run the development server:

@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, ShoppingCart, Loader2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 
 interface Product {
   productId: string;
@@ -12,11 +11,10 @@ interface Product {
   price: number;
 }
 
-export default function Home() {
+export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,8 +37,9 @@ export default function Home() {
   }, []);
 
   const handlePayment = (product: Product) => {
-    // Navigate to payment page with product ID
-    router.push(`/payment?productId=${product.productId}`);
+    // Handle payment logic here
+    console.log('Processing payment for:', product);
+    // You can integrate PayFast SDK here
   };
 
   if (loading) {
@@ -86,7 +85,7 @@ export default function Home() {
             Our Products
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover our amazing collection of products. Choose what you love and pay securely with PayFast.
+            Discover our amazing collection of products. Choose what you love and pay securely.
           </p>
         </motion.div>
 
