@@ -19,6 +19,9 @@ interface PaymentData {
   fields: {
     merchant_id: string;
     merchant_key: string;
+    return_url: string;
+    cancel_url: string;
+    notify_url: string;
     m_payment_id: string;
     amount: string;
     item_name: string;

@@ -17,6 +17,7 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [loadingProductId, setLoadingProductId] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -40,22 +41,11 @@ export default function Home() {
   }, []);
 
   const handlePayment = (product: Product) => {
+    // Set loading state for this specific product
+    setLoadingProductId(product.productId);
     // Navigate to payment page with product ID
     router.push(`/payment?productId=${product.productId}`);
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-        >
-          <Loader2 className="h-8 w-8 text-blue-600" />
-        </motion.div>
-      </div>
-    );
-  }
 
   if (error) {
     return (
@@ -146,14 +136,28 @@ export default function Home() {
                   </div>
                   
                   <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: loadingProductId === product.productId ? 1 : 1.05 }}
+                    whileTap={{ scale: loadingProductId === product.productId ? 1 : 0.95 }}
                     onClick={() => handlePayment(product)}
+                    disabled={loadingProductId === product.productId}
                     style={{backgroundColor: '#e5445f'}}
-                    className="hover:opacity-90 text-white font-semibold py-3 px-6 transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
+                    className={`text-white font-semibold py-3 px-6 transition-all duration-300 flex items-center gap-2 shadow-lg ${
+                      loadingProductId === product.productId
+                        ? 'opacity-80 cursor-not-allowed'
+                        : 'hover:opacity-90 hover:shadow-xl'
+                    }`}
                   >
-                    <CreditCard className="h-4 w-4" />
-                    Pay Now
+                    {loadingProductId === product.productId ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Loading...
+                      </>
+                    ) : (
+                      <>
+                        <CreditCard className="h-4 w-4" />
+                        Pay Now
+                      </>
+                    )}
                   </motion.button>
                 </div>
               </div>
