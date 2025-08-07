@@ -100,7 +100,7 @@ export default function Home() {
             This is an example implementation of the PayFast Java SDK. The UI interacts with a Lambda function that uses the PayFast Java SDK to generate the PayFast form data.
           </p>
           <p className="text-sm text-gray-500 max-w-xl mx-auto">
-            Choose a product below and experience secure payment processing powered by PayFast's Java SDK integration.
+            Choose a product below and experience secure payment processing powered by PayFast&apos;s Java SDK integration.
           </p>
         </motion.div>
 
