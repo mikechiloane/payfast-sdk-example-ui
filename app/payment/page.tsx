@@ -256,7 +256,6 @@ function PaymentContent() {
               id="payfast-form"
               action={paymentData.action} 
               method={paymentData.method}
-              target="_blank"
             >
               {/* Hidden form fields */}
               {Object.entries(paymentData.fields).map(([key, value]) => (
