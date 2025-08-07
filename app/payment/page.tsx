@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { CreditCard, ShoppingCart, ArrowLeft, Shield, Clock } from 'lucide-react';
+import { CreditCard, ShoppingCart, ArrowLeft, Shield, Clock, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 
 interface Product {
@@ -33,6 +33,7 @@ export default function PaymentPage() {
   const [product, setProduct] = useState<Product | null>(null);
   const [paymentData, setPaymentData] = useState<PaymentData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [processingPayment, setProcessingPayment] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -74,7 +75,8 @@ export default function PaymentPage() {
   }, [productId]);
 
   const handlePayment = () => {
-    if (paymentData) {
+    if (paymentData && !processingPayment) {
+      setProcessingPayment(true);
       // Submit the form programmatically
       const form = document.getElementById('payfast-form') as HTMLFormElement;
       if (form) {
@@ -154,7 +156,7 @@ export default function PaymentPage() {
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:mt-[10rem]">
           {/* Product Information */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -249,14 +251,28 @@ export default function PaymentPage() {
 
             {/* Payment Button */}
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: processingPayment ? 1 : 1.02 }}
+              whileTap={{ scale: processingPayment ? 1 : 0.98 }}
               onClick={handlePayment}
+              disabled={processingPayment}
               style={{backgroundColor: '#026bb3'}}
-              className="w-full hover:opacity-90 text-white font-bold py-4 px-6 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl"
+              className={`w-full text-white font-bold py-4 px-6 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg ${
+                processingPayment 
+                  ? 'opacity-80 cursor-not-allowed' 
+                  : 'hover:opacity-90 hover:shadow-xl'
+              }`}
             >
-              <CreditCard className="h-5 w-5" />
-              <span>Pay <span className="font-mono">R{product.price.toFixed(2)}</span> with PayFast</span>
+              {processingPayment ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <span>Processing Payment...</span>
+                </>
+              ) : (
+                <>
+                  <CreditCard className="h-5 w-5" />
+                  <span>Pay <span className="font-mono">R{product.price.toFixed(2)}</span> with PayFast</span>
+                </>
+              )}
             </motion.button>
 
             {/* Security Notice */}
