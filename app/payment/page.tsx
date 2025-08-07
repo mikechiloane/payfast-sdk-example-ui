@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { CreditCard, ShoppingCart, ArrowLeft, Shield, Clock, Loader2 } from 'lucide-react';
@@ -28,6 +28,23 @@ interface PaymentData {
 }
 
 export default function PaymentPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        >
+          <CreditCard className="h-8 w-8 text-blue-600" />
+        </motion.div>
+      </div>
+    }>
+      <PaymentContent />
+    </Suspense>
+  );
+}
+
+function PaymentContent() {
   const searchParams = useSearchParams();
   const productId = searchParams.get('productId');
   const [product, setProduct] = useState<Product | null>(null);
