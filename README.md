@@ -17,6 +17,14 @@ This project demonstrates PayFast integration using the PayFast Java SDK with a 
 - Server-side payment form generation for security
 - Environment-based configuration
 
+## Screenshots
+
+### Product Listing Page
+![Product Listing](docs/pic1.png)
+
+### Payment Page
+![Payment Page](docs/pic2.png)
+
 ## Environment Configuration
 
 Before running the application, copy the example environment file and configure your API host:
